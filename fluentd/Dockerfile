@@ -21,4 +21,4 @@ RUN apt-get update && apt-get install -y --force-yes td-agent
 COPY td-agent.conf /etc/td-agent/
 
 # Copy plugins:
-COPY plugins /etc/td-agent/plugin
+COPY plugins/*.gem /etc/td-agent/plugin/
