@@ -9,7 +9,8 @@ FROM ubuntu:trusty
 RUN curl https://packages.treasuredata.com/GPG-KEY-td-agent | apt-key add -
 
 # Add treasure data repository to apt
-RUN echo "deb http://packages.treasuredata.com/2/ubuntu/trusty/ trusty contrib" > /etc/apt/sources.list.d/treasure-data.list
+RUN echo "deb http://packages.treasuredata.com/2/ubuntu/trusty/ trusty contrib" > \
+    /etc/apt/sources.list.d/treasure-data.list
 
 # Run apt-get update and install td-agent from td repo (must be run on one line, best practice)
 RUN apt-get update && apt-get install -y --force-yes td-agent
@@ -19,4 +20,5 @@ RUN apt-get update && apt-get install -y --force-yes td-agent
 # Add config file
 COPY td-agent.conf /etc/td-agent/
 
-# Install plugins:
+# Copy plugins:
+COPY plugins /etc/td-agent/plugin
