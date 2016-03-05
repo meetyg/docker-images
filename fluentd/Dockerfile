@@ -5,6 +5,8 @@ FROM ubuntu:trusty
 ## http://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent2.sh
 ## Edited to comply with Docker's Dockerfile best practices.
 
+RUN apt-get update && apt-get install -y curl
+
 # Add treasuredata key to apt
 RUN curl https://packages.treasuredata.com/GPG-KEY-td-agent | apt-key add -
 
