@@ -24,3 +24,6 @@ COPY td-agent.conf /etc/td-agent/
 
 # Copy plugins:
 COPY plugins/*.gem /etc/td-agent/plugin/
+
+# Run fluentd (td-agent)
+ENTRYPOINT [“td-agent”]
