@@ -10,9 +10,6 @@ RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC64107
 	&& apt-get install -y ca-certificates nginx=${NGINX_VERSION} gettext-base \
 	&& rm -rf /var/lib/apt/lists/*
 
-# forward request and error logs to log collector folder
-RUN ln -sf /mnt/log/nginx/access.log /var/log/nginx/access.log \
-	&& ln -sf /mnt/log/nginx/error.log /var/log/nginx/error.log
 
 EXPOSE 80 443
 
