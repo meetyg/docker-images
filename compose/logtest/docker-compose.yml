@@ -1,0 +1,21 @@
+version: '2'
+services:
+   nginx:
+     image: test/nginx
+     volumes:
+       - /c/Users/AG/docker-images/log/nginx:/var/log/nginx 
+       - /c/Users/AG/docker-images/html:/usr/share/nginx/html:ro     
+     ports:
+       - "8000:80"
+   fluentd:
+     image: test/fluentd
+     volumes:
+       - /c/Users/AG/docker-images/log:/var/log
+    # depends_on: es-kibana
+   es-kibana:
+     image: test/es-kibana
+     container_name: es_local
+     ports:
+        - "5601:5601"
+        - "9200:9200"
+    
