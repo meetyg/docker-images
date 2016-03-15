@@ -19,11 +19,15 @@ RUN apt-get update && apt-get install -y --force-yes td-agent
 
 ### End of td-install script
 
-# Add config file
+# Add config files
 COPY td-agent.conf /etc/td-agent/
+COPY config.d/ /etc/td-agent/config.d
 
 # Copy plugins:
 COPY plugins/*.gem /etc/td-agent/plugin/
 
+# Install plugins
+RUN td-agent-gem install /etc/td-agent/plugin/*.gem
+
 # Run fluentd (td-agent)
-ENTRYPOINT [“td-agent”]
+ENTRYPOINT ["td-agent"]
