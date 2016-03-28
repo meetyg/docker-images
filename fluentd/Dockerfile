@@ -1,7 +1,7 @@
 FROM debian:jessie
 
 LABEL Description="Fluentd (td-agent) docker image" \
-      BasedOn="debian:jessie" \ 
+      OSImage="debian:jessie" \ 
       ImageVersion="1.0" \ 
       FluentdVersion="latest stable (td-agent)"
 
