@@ -3,19 +3,17 @@ services:
    nginx:
      image: test/nginx
      volumes:
-       - /c/Users/AG/docker-images/log/nginx:/var/log/nginx 
-       - /c/Users/AG/docker-images/html:/usr/share/nginx/html:ro     
+       - /var/log/logtest/nginx:/var/log/nginx 
      ports:
        - "8000:80"
 
    fluentd:
      image: test/fluentd
      volumes:
-       - /c/Users/AG/docker-images/log:/var/log
+       - /var/log/logtest:/var/log
      depends_on: 
         - es
- 
-   es:
+    es:
      image: elasticsearch
      container_name: es-cluster
      ports:
