@@ -1,8 +1,13 @@
-FROM ubuntu:trusty
+FROM debian:jessie
+
+LABEL Description="Fluentd (td-agent) docker image" \
+      BasedOn="debian:jessie" \ 
+      ImageVersion="1.0" \ 
+      FluentdVersion="latest stable (td-agent)"
 
 ### Installing td-agent from Treasuredata's apt/deb repo: ###
-## Taken from Treasuredata's script for installing on Ubuntu 14.04:
-## http://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent2.sh
+## Taken from Treasuredata's script for installing on Debian Jessie (8.3):
+## https://td-toolbelt.herokuapp.com/sh/install-debian-jessie-td-agent2.sh
 ## Edited to comply with Docker's Dockerfile best practices.
 
 RUN apt-get update && apt-get install -y curl
@@ -11,13 +16,16 @@ RUN apt-get update && apt-get install -y curl
 RUN curl https://packages.treasuredata.com/GPG-KEY-td-agent | apt-key add -
 
 # Add treasure data repository to apt
-RUN echo "deb http://packages.treasuredata.com/2/ubuntu/trusty/ trusty contrib" > \
+RUN echo "deb http://packages.treasuredata.com/2/debian/jessie/ jessie contrib" > \
     /etc/apt/sources.list.d/treasure-data.list
 
 # Run apt-get update and install td-agent from td repo (must be run on one line, best practice)
 RUN apt-get update && apt-get install -y --force-yes td-agent
 
 ### End of td-install script
+
+# clean cache files
+RUN apt-get clean && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 # Add config files
 COPY td-agent.conf /etc/td-agent/
@@ -27,7 +35,10 @@ COPY config.d/ /etc/td-agent/config.d
 COPY plugins/*.gem /etc/td-agent/plugin/
 
 # Install plugins
-RUN td-agent-gem install /etc/td-agent/plugin/*.gem
+RUN td-agent-gem install /etc/td-agent/plugin/*.gem --no-ri --no-rdoc
+
+# Create directory for fluentd position files
+RUN mkdir -p /var/log/td-agent/pos
 
 # Run fluentd (td-agent)
 ENTRYPOINT ["td-agent"]
