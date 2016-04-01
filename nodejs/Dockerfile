@@ -1,7 +1,7 @@
-FROM node:latest
+FROM node:slim
 
 
-LABEL Description="NodeJS docker image" \
+LABEL Description="NodeJS docker image (slim version)" \
       OSImage="debian:jessie" \ 
       ImageVersion="1.0" \ 
-      NodeJSVersion="latest stable"
+      NodeJSVersion="latest slim"
