@@ -1,0 +1,10 @@
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script will create an environment variable
+# named DOCKER_CID which will hold the full Docker container's id.
+
+export DOCKER_CID=$(cat /proc/self/cgroup | grep 'docker' | sed 's/^.*\///' | tail -n1)
+
+exit 0
