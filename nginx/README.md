@@ -1,7 +1,7 @@
 # nginx
 
 ## Description:
-Dockerfile based on latest **stable** official nginx image, based on **alpine** linux.
+Dockerfile based on latest **stable** official nginx image.
 
 This image is needed because in official nginx image, log files are linked to stdout, sterr.
 This linking was removed, and log files are written to default nginx logs path.
