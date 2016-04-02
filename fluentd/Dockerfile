@@ -10,10 +10,9 @@ LABEL Description="Fluentd (td-agent) docker image" \
 ## https://td-toolbelt.herokuapp.com/sh/install-debian-jessie-td-agent2.sh
 ## Edited to comply with Docker's Dockerfile best practices.
 
-RUN apt-get update && apt-get install -y curl
 
 # Add treasuredata key to apt
-RUN curl https://packages.treasuredata.com/GPG-KEY-td-agent | apt-key add -
+RUN apt-key adv --fetch-keys http://packages.treasuredata.com/GPG-KEY-td-agent
 
 # Add treasure data repository to apt
 RUN echo "deb http://packages.treasuredata.com/2/debian/jessie/ jessie contrib" > \
