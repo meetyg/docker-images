@@ -1,29 +1,29 @@
 version: '2'
 services:
    nginx:
-     image: test/nginx
-     volumes:
-       - /var/log/logtest/nginx:/var/log/nginx 
-     ports:
-       - "8000:80"
-
+      image: test/nginx
+      volumes:
+        - /var/log/logtest/nginx:/var/log/nginx 
+      ports:
+        - "8000:80"
    fluentd:
-     image: test/fluentd
-     volumes:
-       - /var/log/logtest:/var/log
-     depends_on: 
+      image: test/fluentd
+      volumes:
+        - /var/log/logtest:/var/log
+      depends_on: 
         - es
-    es:
-     image: elasticsearch
-     container_name: es-cluster
-     ports:
-       - "9200:9200"
+   es:
+      image: elasticsearch
+      container_name: es-cluster
+      ports:
+        - "9200:9200"
    kibana:
-     image: kibana
-    
-     depends_on: 
+      image: kibana
+      depends_on: 
         - es
-     environment:
-        ELASTICSEARCH_URL: http://es-cluster:9200 
-     ports:
-       - "5601:5601"
+      environment:
+         ELASTICSEARCH_URL: http://es-cluster:9200 
+      ports:
+        - "5601:5601"
+
+  
