@@ -10,7 +10,6 @@ LABEL Description="Fluentd (td-agent) docker image" \
 ## https://td-toolbelt.herokuapp.com/sh/install-debian-jessie-td-agent2.sh
 ## Edited to comply with Docker's Dockerfile best practices.
 
-
 # Add treasuredata key to apt
 RUN apt-key adv --fetch-keys http://packages.treasuredata.com/GPG-KEY-td-agent
 
@@ -37,7 +36,7 @@ COPY plugins/*.gem /etc/td-agent/plugin/
 RUN td-agent-gem install /etc/td-agent/plugin/*.gem --no-ri --no-rdoc
 
 # Create directory for fluentd position files
-RUN mkdir -p /var/log/td-agent/pos
+RUN mkdir -p /mnt/logs/fluentd/pos
 
 # Run fluentd (td-agent)
 ENTRYPOINT ["td-agent"]
