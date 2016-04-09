@@ -3,7 +3,8 @@ FROM debian:jessie
 LABEL Description="Fluentd (td-agent) docker image" \
       OSImage="debian:jessie" \ 
       ImageVersion="1.0" \ 
-      FluentdVersion="latest stable (td-agent)"
+      FluentdVersion="latest stable (td-agent)" \
+	  LogCollectionMethod="stdout"
 
 ### Installing td-agent from Treasuredata's apt/deb repo: ###
 ## Taken from Treasuredata's script for installing on Debian Jessie (8.3):
@@ -36,7 +37,7 @@ COPY plugins/*.gem /etc/td-agent/plugin/
 RUN td-agent-gem install /etc/td-agent/plugin/*.gem --no-ri --no-rdoc
 
 # Create directory for fluentd position files
-RUN mkdir -p /mnt/logs/fluentd/pos
+RUN mkdir -p /mnt/logs/td-agent/pos
 
 # Run fluentd (td-agent)
 ENTRYPOINT ["td-agent"]
