@@ -31,7 +31,7 @@ COPY td-agent.conf /etc/td-agent/
 COPY config.d/ /etc/td-agent/config.d
 
 # Copy plugins:
-COPY plugins/*.gem /etc/td-agent/plugin/
+COPY plugins/*.* /etc/td-agent/plugin/
 
 # Install plugins
 RUN td-agent-gem install /etc/td-agent/plugin/*.gem --no-ri --no-rdoc
