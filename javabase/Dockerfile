@@ -1,10 +1,10 @@
-FROM java:8-jre-alpine
+FROM java:8-jre
 
-LABEL Description="Java (OpenJDK 8) docker base image (Alpine linux)" \
-      OSImage="alpine:latest" \ 
+LABEL Description="Java (OpenJDK 8) docker base image" \
+      OSImage="debian:latest" \ 
       ImageVersion="1.0" \ 
       JavaVersion="8-jre" \
-	  LogCollectionMethod="logfiles"
+      LogCollectionMethod="logfiles"
 
 
 COPY ../base/container-entrypoint.sh /
