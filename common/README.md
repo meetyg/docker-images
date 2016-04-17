@@ -7,11 +7,14 @@ before running the main executable for the container.
 ```
 FROM alpine:latest
 
-COPY container-entrypoint.sh /
+COPY common/container-entrypoint.sh /
 RUN chmod +x /container-entrypoint.sh
 
 ENTRYPOINT ["/container-entrypoint.sh"]
 ```
+
+The `docker build` command must be run outside of the Dockerfile directory, using `-f` arg, to specifiy the docker-file and its directory. This is because the build context is limited to the current directory the command is run from, but includes its child directories.
+
 ### The Main Executable:
 You have two options:
 
