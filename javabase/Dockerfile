@@ -7,7 +7,7 @@ LABEL Description="Java (OpenJDK 8) docker base image" \
       LogCollectionMethod="logfiles"
 
 
-COPY ../common/container-entrypoint.sh /
+COPY common/container-entrypoint.sh /
 RUN chmod +x /container-entrypoint.sh
 
 ENTRYPOINT ["/container-entrypoint.sh"]

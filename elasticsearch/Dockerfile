@@ -7,7 +7,7 @@ LABEL Description="ElasticSearch docker image" \
       LogCollectionMethod="logfiles"
 
 
-COPY ../common/container-entrypoint.sh /
+COPY common/container-entrypoint.sh /
 RUN chmod +x /container-entrypoint.sh
 
 # Merging entrypoint with ElasticSearch entrypoint:

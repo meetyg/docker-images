@@ -14,7 +14,7 @@ RUN rm -f /var/log/nginx/access.log && \
 # Set LOGS_PATH environment variable for log collecting.
 ENV LOGS_PATH=/var/log/nginx
 	
-COPY ../common/container-entrypoint.sh /
+COPY common/container-entrypoint.sh /
 RUN chmod +x /container-entrypoint.sh
 
 ENTRYPOINT ["/container-entrypoint.sh"]
