@@ -1,4 +1,4 @@
-#!/bin/sh
+#! /bin/bash
 
 #####################
 # helper functions: #
@@ -6,7 +6,7 @@
 
 
 warnMsg () {
-  echo -e "\e[1;31mWARNING: \e[0m$1\e[0m"
+ echo -e "\e[1;31mWARNING: \e[0m$1\e[0m"
  
  return 0
 }
@@ -24,17 +24,16 @@ if [ -e "/proc/self/cgroup" ]
 		DOCKER_CID=$(cat /proc/self/cgroup | grep 'docker' | sed 's/^.*\///' | tail -n1)
 fi
 
-if [ ${#DOCKER_CID} == 64 ] 
+if [ ${#DOCKER_CID} = 64 ]
 	then
 		infoMsg "Running container with id: $DOCKER_CID"
-		
 		
 		if [ ${#LOGS_PATH} -lt 2 ] # Prevents . or /
 		 then
 			warnMsg "LOGS_PATH is not set, logs will not be collected."
 		 else			
 			if [ ! -d "/mnt/logs" ]
-			 then
+			then
 				warnMsg "Logs dir (/mnt/logs) is not mounted, logs will not be collected."
 			else
 				# Create logs directory on mounted logs dir for this container
@@ -53,7 +52,9 @@ else
 	warnMsg "Unable to get container id, logs will not be collected."
 fi		
 
-if [ "$@" ] 
+#echo "params: $@"
+
+if [ -n "$*" ]
 	then
 		infoMsg "Executing \e[44m$@"
 		
@@ -63,6 +64,3 @@ if [ "$@" ]
 	else
 		warnMsg "Nothing to execute, no command specified."
 fi
-
-
-
