@@ -1,9 +1,9 @@
-FROM elasticsearch:latest
+FROM elasticsearch:5.0.1
 
 LABEL Description="ElasticSearch docker image" \
       OSImage="debian:jessie" \ 
-      ImageVersion="1.0" \ 
-      ElasticsearchVersion="latest" \
+      ImageVersion="2.0" \ 
+      ElasticsearchVersion="5.0.1" \
       LogCollectionMethod="logfiles"
 
 # Set LOGS_PATH environment variable for log collecting.
