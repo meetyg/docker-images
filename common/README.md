@@ -23,6 +23,11 @@ ENTRYPOINT ["/container-entrypoint.sh"]
 
 The `docker build` command must be run outside of the Dockerfile directory, using `-f` arg, to specifiy the docker-file and its directory. This is because the build context is limited to the current directory the command is run from, but includes its child directories.
 
+For example:
+```
+sudo docker build --pull -f elasticsearch/Dockerfile .
+```
+ 
 ### The Main Executable:
 You have two options:
 
