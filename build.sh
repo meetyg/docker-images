@@ -19,7 +19,7 @@ infoMsg () {
 
 #####################
 #imgdirs=("elasticsearch" "fluentd" "javabase" "kibana" "nginx" "nodejs")
-imgdirs=("elasticsearch")
+imgdirs=("$2")
 prefix=""
 tag=""
 
@@ -37,7 +37,7 @@ do
 	infoMsg "Building \e[1;34m$dirname\e[0m image..."
 	docker build --pull -f "$dirname/Dockerfile" -t "$prefix$dirname" .
 	
-	tag=$(docker inspect --format='{{.ContainerConfig.Labels.ImageVersion}}' "$prefix$dirname")
+	tag=$(docker inspect --format='{{if .ContainerConfig.Labels.ImageVersion}}{{.ContainerConfig.Labels.ImageVersion}}{{end}}' "$prefix$dirname")
 	
 	if [ -n "$tag" ]; then
 		infoMsg "Tagging image: \e[1;34m$prefix$dirname\e[0m with tag: \e[1;34m$tag\e[0m"
