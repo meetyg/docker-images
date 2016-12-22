@@ -20,7 +20,3 @@ RUN echo "deb https://artifacts.elastic.co/packages/5.x/apt stable main" | tee -
 
 # Install filebeat
 RUN apt-get update && apt-get -y install filebeat
-
-# Configure the beat to start automatically during boot:
-RUN update-rc.d filebeat defaults 95 10
-
