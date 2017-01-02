@@ -38,8 +38,11 @@ if [ ${#DOCKER_CID} = 64 ]
 			else
 				# Create logs directory on mounted logs dir for this container
 				mkdir -p /mnt/logs/$DOCKER_CID
+				
+				# Make sure directory tree up to logs directory exists
+				mkdir -p $LOGS_PATH
 
-				# Remove existing local logs dir. This is mandatory for the symlink to work.
+				# Remove existing local logs dir (keeping tree up to the directory). This is mandatory for the symlink to work.
 				rm -rf $LOGS_PATH
 
 				infoMsg "Linking logs directory:"
