@@ -4,9 +4,10 @@
 # helper functions: #
 #####################
 
+CONTAINER_ENTRYPOINT_SCRIPT_VERSION=2.0
 
 warnMsg () {
- echo -e "\e[1;31mWARNING: \e[0m$1\e[0m"
+ echo -e "\e[1;33mWARNING: \e[0m$1\e[0m"
  
  return 0
 }
@@ -17,24 +18,30 @@ infoMsg () {
  return 0
 }
 
+printVersion() {
+	infoMsg "########################################################"
+	infoMsg "Runing Container Entrypoint Script (ver: $CONTAINER_ENTRYPOINT_SCRIPT_VERSION)"
+	infoMsg "########################################################"
+	
+	return 0
+}
+
 #####################
 
-if [ -e "/proc/self/cgroup" ]
-	then
-		DOCKER_CID=$(cat /proc/self/cgroup | grep 'docker' | sed 's/^.*\///' | tail -n1)
+printVersion
+
+if [ -e "/proc/self/cgroup" ]; then
+	DOCKER_CID=$(cat /proc/self/cgroup | grep 'docker' | sed 's/^.*\///' | tail -n1)
 fi
 
-if [ ${#DOCKER_CID} = 64 ]
-	then
-		infoMsg "Running container with id: $DOCKER_CID"
+if [ ${#DOCKER_CID} = 64 ]; then
+		infoMsg "Running container with id: \e[1;34m$DOCKER_CID\e[0m"
 		
-		if [ ${#LOGS_PATH} -lt 2 ] # Prevents . or /
-		 then
+		if [ ${#LOGS_PATH} -lt 2 ]; then # Prevents . or /
 			warnMsg "LOGS_PATH is not set, logs will not be collected."
-		 else			
-			if [ ! -d "/mnt/logs" ]
-			then
-				warnMsg "Logs dir (/mnt/logs) is not mounted, logs will not be collected."
+		else			
+			if [ ! -d "/mnt/logs" ]; then
+				warnMsg "Logs directory \e[1;34m/mnt/logs\e[0m is not mounted, logs will not be collected."
 			else
 				# Create logs directory on mounted logs dir for this container
 				mkdir -p /mnt/logs/$DOCKER_CID
@@ -57,9 +64,19 @@ fi
 
 #echo "params: $@"
 
+# Check if configs dir is mounted:
+if [ ! -d "/mnt/config" ]; then
+	if [ ${#DEFAULT_CONFIG_FILE_PATH} -lt 2 ]; then # Prevents . or /
+		warnMsg "DEFAULT_CONFIG_FILE_PATH is not set."
+		warnMsg "Config directory \e[1;34m/mnt/config\e[0m is not mounted, using container default configuration."
+	else
+		warnMsg "Config directory \e[1;34m/mnt/config\e[0m is not mounted, using default configuration from $DEFAULT_CONFIG_FILE_PATH"
+	fi
+fi
+
 if [ -n "$*" ]
 	then
-		infoMsg "Executing \e[44m$@"
+		infoMsg "Executing \e[1;34m$@"
 		
 		# Run the command passed as argument to this container.
 		exec "$@"
