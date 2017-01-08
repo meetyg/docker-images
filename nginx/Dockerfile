@@ -1,9 +1,10 @@
-FROM nginx:stable
+FROM nginx:1.10.2
 
 LABEL Description="Base Nginx docker image" \
-      OSImage="debian:jessie" \ 
-      ImageVersion="1.0" \ 
-      NginxVersion="latest stable"  \
+      BaseImageOS="debian:jessie" \ 
+	  ImageBuildNumber="1" \ 
+      BaseImageVersion="1.10.2"  \
+	  BaseImageName="nginx" \
 	  LogCollectionMethod="logfiles"
 	  
 
@@ -13,6 +14,9 @@ RUN rm -f /var/log/nginx/access.log && \
 
 # Set LOGS_PATH environment variable for log collecting.
 ENV LOGS_PATH=/var/log/nginx
+
+# Set default configuration path.
+ENV DEFAULT_CONFIG_FILE_PATH=/etc/nginx/nginx.conf
 	
 COPY common/container-entrypoint.sh /
 RUN chmod +x /container-entrypoint.sh
