@@ -17,6 +17,12 @@ infoMsg () {
  return 0
 }
 
+errMsg () {
+ echo -e "\e[1;31mERROR: \e[0m$1\e[0m"
+ 
+ return 0
+}
+
 #####################
 #imgdirs=("elasticsearch" "fluentd" "javabase" "kibana" "nginx" "nodejs")
 imgdirs=("$2")
@@ -36,8 +42,19 @@ for dirname in "${imgdirs[@]}"
 do
 	infoMsg "Building \e[1;34m$dirname\e[0m image..."
 	docker build --pull -f "$dirname/Dockerfile" -t "$prefix$dirname" .
+	status=$?
+		   
+    if [ $status -ne 0 ]; then
+		errMsg "Docker build command failed, see output above."
+		exit $status
+	fi
 	
-	tag=$(docker inspect --format='{{if .ContainerConfig.Labels.ImageVersion}}{{.ContainerConfig.Labels.ImageVersion}}{{end}}' "$prefix$dirname")
+	baseImageVersion=$(docker inspect --format='{{if .ContainerConfig.Labels.BaseImageVersion}}{{.ContainerConfig.Labels.BaseImageVersion}}{{end}}' "$prefix$dirname")
+	buildNumber=$(docker inspect --format='{{if .ContainerConfig.Labels.ImageBuildNumber}}{{.ContainerConfig.Labels.ImageBuildNumber}}{{end}}' "$prefix$dirname")
+	
+	if [ -n "$baseImageVersion" -a -n "$buildNumber" ]; then
+		tag="${baseImageVersion}.b${buildNumber}"
+	fi
 	
 	if [ -n "$tag" ]; then
 		infoMsg "Tagging image: \e[1;34m$prefix$dirname\e[0m with tag: \e[1;34m$tag\e[0m"
@@ -46,7 +63,7 @@ do
 		# Remove "latest" tag, to prevent unintentional use
 		docker rmi "$prefix$dirname:latest"
 	else
-		warnMsg "No tag found for: \e[1;34m$prefix$dirname\e[0m , make sure ImageVersion label exists in the Dockerfile."
+		warnMsg "No tag found for: \e[1;34m$prefix$dirname\e[0m , make sure BaseImageVersion and ImageBuildNumber labels exist in the Dockerfile."
 	fi
 	
 	infoMsg "Saving Docker image \e[1;34m$prefix$dirname$tag\e[0m as \e[1;34m${prefix: : -1}_${dirname}_${tag:1}.tar\e[0m"
