@@ -1,10 +1,15 @@
 FROM buildpack-deps:jessie-curl
 
 LABEL Description="ELK filebeat docker image" \
-      OSImage="debian:jessie" \ 
-      ImageVersion="1.0" \ 
-      FilebeatVersion="5.1.1" \
+      BaseImageOS="debian:jessie" \ 
+      ImageBuildNumber="1" \ 
+      BaseImageVersion="5.1.1" \
       LogCollectionMethod="none"
+
+
+# Set default configuration path.
+ENV DEFAULT_CONFIG_FILE_PATH=/usr/share/elasticsearch/config/elasticsearch.yml
+	
 
 # filebeats installation instructions taken from: 
 # https://www.elastic.co/guide/en/beats/libbeat/5.1/setup-repositories.html

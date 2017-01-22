@@ -1,9 +1,10 @@
-FROM java:8-jre
+FROM openjdk:8-jre
 
 LABEL Description="Java (OpenJDK 8) docker base image" \
-      OSImage="debian:latest" \ 
-      ImageVersion="1.0" \ 
-      JavaVersion="8-jre" \
+      BaseImageOS="debian:jessie" \ 
+      ImageBuildNumber="2" \ 
+      BaseImageVersion="8-jre" \
+	   BaseImageName="openjdk" \
       LogCollectionMethod="logfiles"
 
 

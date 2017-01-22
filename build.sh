@@ -24,8 +24,16 @@ errMsg () {
 }
 
 #####################
-#imgdirs=("elasticsearch" "fluentd" "javabase" "kibana" "nginx" "nodejs")
-imgdirs=("$2")
+
+
+if [ ! -n "$2" ]; then
+	imgdirs=("elasticsearch" "filebeat" "javabase" "kibana" "nginx" "nodejs")
+else
+	imgdirs=("$2")
+fi
+
+
+
 prefix=""
 tag=""
 

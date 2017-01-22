@@ -1,8 +1,9 @@
-FROM kibana:5.0
+FROM kibana:5.1.1
 
 LABEL Description="Kibana docker image" \
-      OSImage="debian:jessie" \ 
-      ImageVersion="2.0" \ 
-      KibanaVersion="5.0" \
-	  LogCollectionMethod="stdout"
+      BaseImageOS="debian:jessie" \ 
+      ImageBuildNumber="1" \ 
+      BaseImageVersion="5.1.1" \
+	  BaseImageName="kibana" \
+	  LogCollectionMethod="none"
 

@@ -1,9 +1,10 @@
-FROM elasticsearch:5.0
+FROM elasticsearch:5.1.1
 
 LABEL Description="ElasticSearch docker image" \
       BaseImageOS="debian:jessie" \ 
-      ImageBuildNumber="2" \ 
-      BaseImageVersion="5.0" \
+      ImageBuildNumber="1" \ 
+      BaseImageVersion="5.1.1" \
+  	   BaseImageName="elasticsearch" \
       LogCollectionMethod="logfiles"
 	  
 	  

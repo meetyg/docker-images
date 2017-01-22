@@ -1,7 +1,9 @@
-FROM node:slim
+FROM node:7.4
 
-LABEL Description="NodeJS docker image (slim version)" \
-      OSImage="debian:jessie" \ 
-      ImageVersion="1.0" \ 
-      NodeJSVersion="latest slim" \
+LABEL Description="NodeJS docker image" \
+      BaseImageOS="debian:jessie" \ 
+      ImageBuildNumber="1" \ 
+      BaseImageVersion="7.4" \
+	   BaseImageName="node" \
 	  LogCollectionMethod="stdout"
+
