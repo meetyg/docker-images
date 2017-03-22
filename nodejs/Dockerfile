@@ -1,4 +1,4 @@
-FROM node:7.76
+FROM node:7.7
 
 LABEL Description="NodeJs docker image" \
       BaseImageOS="debian:jessie" \ 
