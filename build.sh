@@ -27,7 +27,7 @@ errMsg () {
 
 
 if [ ! -n "$2" ]; then
-	imgdirs=("elasticsearch" "filebeat" "javabase" "kibana" "nginx" "nodejs")
+	imgdirs=("elasticsearch" "filebeat" "fluentd" "neo4j" "javabase" "kibana" "nginx" "nodejs")
 else
 	imgdirs=("$2")
 fi
@@ -49,7 +49,7 @@ fi
 for dirname in "${imgdirs[@]}"
 do
 	infoMsg "Building \e[1;34m$dirname\e[0m image..."
-	docker build --pull -f "$dirname/Dockerfile" -t "$prefix$dirname" .
+	docker build --pull -t "$prefix$dirname" $dirname
 	status=$?
 		   
     if [ $status -ne 0 ]; then
