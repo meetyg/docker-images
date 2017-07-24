@@ -69,7 +69,7 @@ do
 		tag=":$tag"
 		docker tag "$prefix$dirname:latest" "$prefix$dirname$tag" 
 		# Remove "latest" tag, to prevent unintentional use
-		docker rmi "$prefix$dirname:latest"
+		#docker rmi "$prefix$dirname:latest"
 	else
 		warnMsg "No tag found for: \e[1;34m$prefix$dirname\e[0m , make sure BaseImageVersion and ImageBuildNumber labels exist in the Dockerfile."
 	fi
