@@ -2,7 +2,7 @@ FROM fluent/fluentd:stable-debian-onbuild
 
 LABEL Description="Fluentd docker image" \
       BaseImageOS="debian" \ 
-      ImageBuildNumber="1" \ 
+      ImageBuildNumber="2" \ 
       BaseImageVersion="0.12.39" \
 	  BaseImageName="fluentd:stable-debian-onbuild" \
 	  LogCollectionMethod="stdout"
